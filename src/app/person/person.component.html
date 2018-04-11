@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>PWX</span>
+    <span class="person-spacer"></span>
+    <mat-icon class="person-icon">favorite</mat-icon>
+    <mat-icon class="person-icon">delete</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+<button id="add-person" (click)="addPerson()" mat-fab>
+  <mat-icon aria-label="Add person">person_add</mat-icon>
+</button>
+<span *ngFor="let person of persons">{{ person.name }}</span>
