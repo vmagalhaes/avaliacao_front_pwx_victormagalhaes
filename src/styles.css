@@ -3,3 +3,21 @@
 body {
   margin: 0 auto;
 }
+
+.style-success {
+  color: white;
+  background-color: #4CAF50;
+}
+
+.style-success .mat-simple-snackbar-action  {
+  color: white;
+}
+
+.style-error {
+  color: white;
+  background-color: #F44336;
+}
+
+.style-error .mat-simple-snackbar-action {
+  color: white;
+}

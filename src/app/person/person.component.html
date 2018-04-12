@@ -5,7 +5,7 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <button id="add-person" (click)="addPerson()" mat-fab>
-  <mat-icon aria-label="Add person">person_add</mat-icon>
+  <mat-icon aria-label="Add person">{{ creating ? 'clear' : 'person_add' }}</mat-icon>
 </button>
 
 <div class="container">
@@ -13,69 +13,112 @@
     <span>Aplicar busca</span>
     <div class="row filters-container">
       <div class="col-md-3">
-        <mat-form-field>
+        <mat-form-field hintLabel="Máximo de 150 caracteres">
           <mat-label>Nome</mat-label>
-          <input matInput placeholder="Victor Magalhães" [(ngModel)]="search.name" name="name" [type]="text">
+          <input matInput placeholder="Victor Magalhães" maxlength="150" [(ngModel)]="search.name" name="name" [type]="text">
         </mat-form-field>
       </div>
       <div class="col-md-3">
         <mat-form-field>
-          <mat-label>CPF</mat-label>        
-          <input matInput placeholder="000.000.000-00" [(ngModel)]="search.cpf" name="cpf" [type]="text">
+          <mat-label>CPF</mat-label>
+          <input matInput placeholder="000.000.000-00" maxlength="14" [(ngModel)]="search.cpf" name="cpf" [type]="text">
         </mat-form-field>
       </div>
       <div class="col-md-3">
         <mat-form-field>
-          <mat-label>Data de nascimento</mat-label>        
+          <mat-label>Data de nascimento</mat-label>
           <input matInput placeholder="DD/MM/AAAA" [(ngModel)]="search.birthday" name="birthday" [type]="text">
         </mat-form-field>
       </div>
       <div class="col-md-3">
         <mat-form-field>
-          <mat-label>E-mail</mat-label>        
+          <mat-label>E-mail</mat-label>
           <input matInput placeholder="email@email" [(ngModel)]="search.email" name="email" [type]="email">
         </mat-form-field>
       </div>
-      <div class="col-md-12 search-button">
+      <div class="col-md-8">
+        <mat-error *ngIf="searchError">Nenhum registro foi encontrado.</mat-error>
+        <mat-error *ngIf="searchEmptyError">Por favor, digite pelo menos um filtro.</mat-error>
+        <!-- <li *ngFor="let error of validationErrors" class="text-danger">{{ error }}</li> -->
+      </div>
+      <div class="col-md-4 search-button">
         <button (click)="doSearch()" mat-raised-button color="primary">Buscar</button>
       </div>
     </div>
   </mat-card>
-  <div class="row" *ngIf="person">
-    <div class="col-md-12">
+  <div class="row">
+    <div class="col-md-12" *ngIf="person && !creating">
       <mat-card>
         <span>Usuário encontrado</span>
-        <div class="row filters-container">
-          <div class="col-md-3">
-            <mat-form-field>
-              <mat-label>Nome</mat-label>
-              <input matInput placeholder="Victor Magalhães" [disabled]="!editing" [(ngModel)]="person.name" name="name" [type]="text">
-            </mat-form-field>
+        <form #uForm="ngForm" (submit)="onSubmitPerson(person, uForm)">
+          <div class="row filters-container">
+            <div class="col-md-2">
+              <mat-form-field hintLabel="Máximo de 150 caracteres">
+                <mat-label>Nome</mat-label>
+                <input matInput placeholder="Victor Magalhães" maxlength="150" [disabled]="!editing" [(ngModel)]="person.name" name="name" [type]="text" required>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <mat-form-field>
+                <mat-label>CPF</mat-label>
+                <input matInput placeholder="000.000.000-00" maxlength="14" [disabled]="!editing" [(ngModel)]="person.cpf" name="cpf" [type]="text" required>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field>
+                <mat-label>Data de nascimento</mat-label>
+                <input matInput placeholder="DD/MM/AAAA" [disabled]="!editing" [(ngModel)]="person.birthday" name="birthday" [type]="text">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field hintLabel="Máximo de 400 caracteres">
+                <mat-label>E-mail</mat-label>
+                <input matInput placeholder="email@email" maxlength="400" [disabled]="!editing" [(ngModel)]="person.email" name="email" type="email" email required>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2 btn-tools">
+              <button matTooltip="{{ editIcon == 'edit' ? 'Editar' : 'Salvar' }}"  type="editing ? submit : button" mat-mini-fab color="primary"><mat-icon>{{ editing ? 'done' : 'edit' }}</mat-icon></button>
+              <button  matTooltip="Remover" (click)="deletePerson(person)" mat-mini-fab color="primary"><mat-icon>delete</mat-icon></button>
+            </div>
           </div>
-          <div class="col-md-2">
-            <mat-form-field>
-              <mat-label>CPF</mat-label>        
-              <input matInput placeholder="000.000.000-00" [disabled]="!editing" [(ngModel)]="person.cpf" name="cpf" [type]="text">
-            </mat-form-field>
-          </div>
-          <div class="col-md-2">
-            <mat-form-field>
-              <mat-label>Data de nascimento</mat-label>        
-              <input matInput placeholder="DD/MM/AAAA" [disabled]="!editing" [(ngModel)]="person.birthday" name="birthday" [type]="text">
-            </mat-form-field>
-          </div>
-          <div class="col-md-3">
-            <mat-form-field>
-              <mat-label>E-mail</mat-label>        
-              <input matInput placeholder="email@email" [disabled]="!editing" [(ngModel)]="person.email" name="email" [type]="email">
-            </mat-form-field>
-          </div>
-          <div class="col-md-2">
-            <button (click)="editPerson(person)" mat-icon-button color="primary"><mat-icon>edit</mat-icon></button>
-            <button (click)="removePerson(person)" mat-icon-button color="primary"><mat-icon>remove</mat-icon></button>
-          </div>
-        </div>
+        </form>
       </mat-card>
-    </div>  
+    </div>
+    <div [hidden]="!creating" class="col-md-12">
+      <mat-card>
+        <span>Novo usuário</span>
+        <form #uForm="ngForm" (submit)="onSubmitPerson(data, uForm)">
+          <div class="row filters-container">
+            <div class="col-md-2">
+              <mat-form-field hintLabel="Máximo de 150 caracteres">
+                <mat-label>Nome</mat-label>
+                <input matInput placeholder="Victor Magalhães" maxlength="150" [(ngModel)]="data.name" name="name" [type]="text" required>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2">
+              <mat-form-field>
+                <mat-label>CPF</mat-label>
+                <input matInput placeholder="000.000.000-00" maxlength="14" [(ngModel)]="data.cpf" name="cpf" [type]="text" required>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field>
+                <mat-label>Data de nascimento</mat-label>
+                <input matInput placeholder="DD/MM/AAAA" [(ngModel)]="data.birthday" name="birthday" [type]="text">
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field hintLabel="Máximo de 400 caracteres">
+                <mat-label>E-mail</mat-label>
+                <input matInput placeholder="email@email" maxlength="400" [(ngModel)]="data.email" name="email" type="email" email required>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2 btn-tools">
+              <button matTooltip="Salvar" type="submit" mat-mini-fab color="primary"><mat-icon>done</mat-icon></button>
+            </div>
+          </div>
+        </form>
+      </mat-card>
+    </div>
   </div>
 </div>

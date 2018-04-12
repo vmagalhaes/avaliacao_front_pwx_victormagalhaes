@@ -11,7 +11,7 @@ import { PersonComponent } from './person';
 
 // Material Modules
 import { MatMenuModule } from '@angular/material/menu';
-import { 
+import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
@@ -21,7 +21,9 @@ import {
   MatListModule,
   MatFormField,
   MatInputModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatSnackBarModule,
+  MatTooltipModule
 } from '@angular/material'
 import 'hammerjs';
 
@@ -45,7 +47,9 @@ import 'hammerjs';
     MatListModule,
     MatMenuModule,
     MatSortModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   exports: [
     MatButtonModule,
@@ -55,7 +59,9 @@ import 'hammerjs';
     MatInputModule,
     MatListModule,
     MatMenuModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [ AppComponent ]

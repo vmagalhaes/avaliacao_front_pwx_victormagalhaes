@@ -27,9 +27,22 @@ mat-card {
     .col-md-3 > mat-form-field {
       width: 100%;
     }
+
+    .col-md-8 > mat-error {
+      line-height: 2em;
+    }
   }
 
   .search-button > button {
     float: right;
+  }
+}
+
+.btn-tools {
+  line-height: 4;
+  text-align: right;
+
+  mat-icon:hover {
+    cursor: pointer;
   }
 }
