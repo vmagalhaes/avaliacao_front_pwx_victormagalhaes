@@ -2,11 +2,80 @@
   <mat-toolbar-row>
     <span>PWX</span>
     <span class="person-spacer"></span>
-    <mat-icon class="person-icon">favorite</mat-icon>
-    <mat-icon class="person-icon">delete</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
 <button id="add-person" (click)="addPerson()" mat-fab>
   <mat-icon aria-label="Add person">person_add</mat-icon>
 </button>
-<span *ngFor="let person of persons">{{ person.name }}</span>
+
+<div class="container">
+  <mat-card>
+    <span>Aplicar busca</span>
+    <div class="row filters-container">
+      <div class="col-md-3">
+        <mat-form-field>
+          <mat-label>Nome</mat-label>
+          <input matInput placeholder="Victor Magalhães" [(ngModel)]="search.name" name="name" [type]="text">
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field>
+          <mat-label>CPF</mat-label>        
+          <input matInput placeholder="000.000.000-00" [(ngModel)]="search.cpf" name="cpf" [type]="text">
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field>
+          <mat-label>Data de nascimento</mat-label>        
+          <input matInput placeholder="DD/MM/AAAA" [(ngModel)]="search.birthday" name="birthday" [type]="text">
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field>
+          <mat-label>E-mail</mat-label>        
+          <input matInput placeholder="email@email" [(ngModel)]="search.email" name="email" [type]="email">
+        </mat-form-field>
+      </div>
+      <div class="col-md-12 search-button">
+        <button (click)="doSearch()" mat-raised-button color="primary">Buscar</button>
+      </div>
+    </div>
+  </mat-card>
+  <div class="row" *ngIf="person">
+    <div class="col-md-12">
+      <mat-card>
+        <span>Usuário encontrado</span>
+        <div class="row filters-container">
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label>Nome</mat-label>
+              <input matInput placeholder="Victor Magalhães" [disabled]="!editing" [(ngModel)]="person.name" name="name" [type]="text">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field>
+              <mat-label>CPF</mat-label>        
+              <input matInput placeholder="000.000.000-00" [disabled]="!editing" [(ngModel)]="person.cpf" name="cpf" [type]="text">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field>
+              <mat-label>Data de nascimento</mat-label>        
+              <input matInput placeholder="DD/MM/AAAA" [disabled]="!editing" [(ngModel)]="person.birthday" name="birthday" [type]="text">
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <mat-label>E-mail</mat-label>        
+              <input matInput placeholder="email@email" [disabled]="!editing" [(ngModel)]="person.email" name="email" [type]="email">
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <button (click)="editPerson(person)" mat-icon-button color="primary"><mat-icon>edit</mat-icon></button>
+            <button (click)="removePerson(person)" mat-icon-button color="primary"><mat-icon>remove</mat-icon></button>
+          </div>
+        </div>
+      </mat-card>
+    </div>  
+  </div>
+</div>

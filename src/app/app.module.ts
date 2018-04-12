@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -8,13 +9,20 @@ import { CoreModule } from './core/core.module';
 
 import { PersonComponent } from './person';
 
-// Bootstrap
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 // Material Modules
 import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule } from '@angular/material'
+import { 
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatSortModule,
+  MatListModule,
+  MatFormField,
+  MatInputModule,
+  MatFormFieldModule
+} from '@angular/material'
 import 'hammerjs';
 
 @NgModule({
@@ -27,17 +35,25 @@ import 'hammerjs';
     BrowserAnimationsModule,
     BrowserModule,
     CoreModule,
+    FormsModule,
     MatButtonModule,
+    MatCardModule,
     MatCheckboxModule,
+    MatFormFieldModule,
     MatIconModule,
+    MatInputModule,
+    MatListModule,
     MatMenuModule,
-    MatToolbarModule,
-    NgbModule.forRoot()
+    MatSortModule,
+    MatToolbarModule
   ],
   exports: [
     MatButtonModule,
     MatCheckboxModule,
+    MatFormFieldModule,
     MatIconModule,
+    MatInputModule,
+    MatListModule,
     MatMenuModule,
     MatToolbarModule
   ],

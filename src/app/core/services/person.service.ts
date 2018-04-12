@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 
-import { Person, RawPerson } from '../models/person';
+import { Person } from '../models/person';
 
 import { RestClientService } from './rest-client.service';
 import { SettingsService } from './settings.service';
