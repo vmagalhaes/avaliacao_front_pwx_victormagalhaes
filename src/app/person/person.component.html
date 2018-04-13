@@ -78,7 +78,7 @@
             </div>
             <div class="col-md-2 btn-tools">
               <button matTooltip="{{ editIcon == 'edit' ? 'Editar' : 'Salvar' }}"  type="editing ? submit : button" mat-mini-fab color="primary"><mat-icon>{{ editing ? 'done' : 'edit' }}</mat-icon></button>
-              <button  matTooltip="Remover" (click)="deletePerson(person)" mat-mini-fab color="primary"><mat-icon>delete</mat-icon></button>
+              <button matTooltip="Remover" (click)="deletePerson(person)" mat-mini-fab color="primary"><mat-icon>delete</mat-icon></button>
             </div>
           </div>
         </form>
@@ -121,4 +121,48 @@
       </mat-card>
     </div>
   </div>
+  <mat-card>
+    <div class="row list-persons">
+      <div class="col-md-12">
+        <mat-tab-group>
+          <mat-tab label="Gráfico">
+            <mat-card>
+              <canvas id="canvas">{{ chart }}</canvas>
+            </mat-card>
+          </mat-tab>
+          <mat-tab label="Lista">
+            <div *ngFor="let person of persons" class="row filters-container">
+              <div class="col-md-2">
+                <mat-form-field>
+                  <mat-label>Nome</mat-label>
+                  <input matInput placeholder="Victor Magalhães" disabled maxlength="150" [(ngModel)]="person.name" name="name" [type]="text" required>
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field>
+                  <mat-label>CPF</mat-label>
+                  <input matInput placeholder="000.000.000-00" disabled maxlength="14" [(ngModel)]="person.cpf" name="cpf" [type]="text" required>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field>
+                  <mat-label>Data de nascimento</mat-label>
+                  <input matInput placeholder="DD/MM/AAAA" disabled [(ngModel)]="person.birthday" name="birthday" [type]="text">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field>
+                  <mat-label>E-mail</mat-label>
+                  <input matInput placeholder="email@email" disabled maxlength="400" [(ngModel)]="person.email" name="email" type="email" email required>
+                </mat-form-field>
+              </div>
+              <div class="col-md-2 btn-tools">
+                <button matTooltip="Remover" (click)="deletePerson(person)" mat-mini-fab color="primary"><mat-icon>delete</mat-icon></button>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </mat-card>
 </div>

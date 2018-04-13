@@ -132,6 +132,7 @@ export class PersonService extends RestClientService {
       id: person.id,
       name: `${person.name}${person.surname ? ' ' + person.surname : ''}`,
       cpf: this.unmarshalCpf(person.cpf),
+      age: moment().diff(person.birthday, 'years'),
       email: person.email,
       birthday: moment(person.birthday).format('DD/MM/YYYY')
     }

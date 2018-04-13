@@ -4,6 +4,8 @@ import * as _ from 'lodash';
 import { FormControl } from '@angular/forms';
 import { EmailValidator } from '@angular/forms';
 
+import { Chart } from 'chart.js';
+
 import { PersonService } from '../core/services/person.service';
 import { Person } from '../core/models/person';
 
@@ -28,6 +30,8 @@ export class PersonComponent implements OnInit {
   data: any = {};
   editingPerson: Person;
   creating: boolean = false;
+
+  chart: Chart;
 
   search: SearchPerson = {
     name: '',
@@ -59,6 +63,8 @@ export class PersonComponent implements OnInit {
     this.personService.getPersons()
       .subscribe((persons: Person[]) => {
         this.persons = persons;
+
+        this.buildChart();
       }, (error: Error) => {
         this.openSnackBar(`Houve um problema ao carregar os registros.`, 'Ok', this.configError);
       });
@@ -136,6 +142,7 @@ export class PersonComponent implements OnInit {
 
         if (index >= 1) {
           this.persons.splice(1, index);
+          this.buildChart();
           this.editing = false;
           this.person = undefined;
         }
@@ -150,6 +157,7 @@ export class PersonComponent implements OnInit {
     this.personService.updatePerson(editPerson)
       .subscribe((person: Person) => {
         this.person = person;
+        this.buildChart();
         this.openSnackBar(`O registro de ${person.name}, foi salvo com sucesso.`, 'Ok', this.configSuccess);
         this.editing = false;
       }, (error: Error) => {
@@ -162,6 +170,7 @@ export class PersonComponent implements OnInit {
     this.personService.createPerson(this.data)
       .subscribe((person: Person) => {
         this.persons.push(person);
+        this.buildChart();
         this.data = {};
         this.openSnackBar(`O registro de ${person.name}, foi criado com sucesso.`, 'Ok', this.configSuccess);
         this.creating = false;
@@ -177,6 +186,44 @@ export class PersonComponent implements OnInit {
       horizontalPosition: 'end',
       verticalPosition: 'top'
     }, config));
+  }
+
+  private buildChart() {
+    this.chart = new Chart('canvas', {
+      type: 'bar',
+      data: {
+        labels: this.persons.map((person: Person) => { return person.name }),
+        datasets: [{
+          label: 'Idade',
+          data: this.persons.map((person: Person) => { return person.age }),
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
+    }
   }
 
 }

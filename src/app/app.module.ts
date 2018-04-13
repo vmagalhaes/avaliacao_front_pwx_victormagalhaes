@@ -23,7 +23,8 @@ import {
   MatInputModule,
   MatFormFieldModule,
   MatSnackBarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatTabsModule
 } from '@angular/material'
 import 'hammerjs';
 
@@ -49,7 +50,8 @@ import 'hammerjs';
     MatSortModule,
     MatToolbarModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTabsModule
   ],
   exports: [
     MatButtonModule,
@@ -61,7 +63,8 @@ import 'hammerjs';
     MatMenuModule,
     MatToolbarModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [ AppComponent ]
