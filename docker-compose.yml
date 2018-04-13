@@ -1,0 +1,19 @@
+version: '2'
+services:
+  json-server:
+    image: vimagick/json-server
+    command: -w db.json
+    volumes:
+      - ./db.json:/app/db.json
+    restart: always
+    network_mode: "host"
+  avaliacao-front-pwx-victormagalhaes:
+    image: avaliacao-front-pwx-victormagalhaes
+    build: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
+    network_mode: "host"
+    depends_on:
+      - 'json-server'

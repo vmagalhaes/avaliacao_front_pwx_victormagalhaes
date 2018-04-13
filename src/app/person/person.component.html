@@ -39,7 +39,6 @@
       <div class="col-md-8">
         <mat-error *ngIf="searchError">Nenhum registro foi encontrado.</mat-error>
         <mat-error *ngIf="searchEmptyError">Por favor, digite pelo menos um filtro.</mat-error>
-        <!-- <li *ngFor="let error of validationErrors" class="text-danger">{{ error }}</li> -->
       </div>
       <div class="col-md-4 search-button">
         <button (click)="doSearch()" mat-raised-button color="primary">Buscar</button>
@@ -126,38 +125,40 @@
       <div class="col-md-12">
         <mat-tab-group>
           <mat-tab label="Gráfico">
-            <mat-card>
+            <mat-card style="height: 300px">
               <canvas id="canvas">{{ chart }}</canvas>
             </mat-card>
           </mat-tab>
           <mat-tab label="Lista">
-            <div *ngFor="let person of persons" class="row filters-container">
-              <div class="col-md-2">
-                <mat-form-field>
-                  <mat-label>Nome</mat-label>
-                  <input matInput placeholder="Victor Magalhães" disabled maxlength="150" [(ngModel)]="person.name" name="name" [type]="text" required>
-                </mat-form-field>
-              </div>
-              <div class="col-md-2">
-                <mat-form-field>
-                  <mat-label>CPF</mat-label>
-                  <input matInput placeholder="000.000.000-00" disabled maxlength="14" [(ngModel)]="person.cpf" name="cpf" [type]="text" required>
-                </mat-form-field>
-              </div>
-              <div class="col-md-3">
-                <mat-form-field>
-                  <mat-label>Data de nascimento</mat-label>
-                  <input matInput placeholder="DD/MM/AAAA" disabled [(ngModel)]="person.birthday" name="birthday" [type]="text">
-                </mat-form-field>
-              </div>
-              <div class="col-md-3">
-                <mat-form-field>
-                  <mat-label>E-mail</mat-label>
-                  <input matInput placeholder="email@email" disabled maxlength="400" [(ngModel)]="person.email" name="email" type="email" email required>
-                </mat-form-field>
-              </div>
-              <div class="col-md-2 btn-tools">
-                <button matTooltip="Remover" (click)="deletePerson(person)" mat-mini-fab color="primary"><mat-icon>delete</mat-icon></button>
+            <div class="filters-container">
+              <div *ngFor="let person of persons" class="row">
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label>Nome</mat-label>
+                    <input matInput placeholder="Victor Magalhães" disabled maxlength="150" [(ngModel)]="person.name" name="name" [type]="text" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                  <mat-form-field>
+                    <mat-label>CPF</mat-label>
+                    <input matInput placeholder="000.000.000-00" disabled maxlength="14" [(ngModel)]="person.cpf" name="cpf" [type]="text" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label>Data de nascimento</mat-label>
+                    <input matInput placeholder="DD/MM/AAAA" disabled [(ngModel)]="person.birthday" name="birthday" [type]="text">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label>E-mail</mat-label>
+                    <input matInput placeholder="email@email" disabled maxlength="400" [(ngModel)]="person.email" name="email" type="email" email required>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-1 btn-tools">
+                  <button matTooltip="Remover" (click)="deletePerson(person)" mat-mini-fab color="primary"><mat-icon>delete</mat-icon></button>
+                </div>
               </div>
             </div>
           </mat-tab>

@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('avaliacao-front-pwx-victor-magalhaes App', () => {
+describe('avaliacao-front-pwx-victormagalhaes App', () => {
   let page: AppPage;
 
   beforeEach(() => {

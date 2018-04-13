@@ -114,9 +114,6 @@ export class PersonComponent implements OnInit {
     this.creating = !this.creating;
   }
 
-  searchChange(search: string) {
-  }
-
   onSubmitPerson(editPerson: Person, form: FormControl) {
     if (!this.editing) {
       this.editingPerson = _.cloneDeep(this.person);
@@ -194,7 +191,6 @@ export class PersonComponent implements OnInit {
       data: {
         labels: this.persons.map((person: Person) => { return person.name }),
         datasets: [{
-          label: 'Idade',
           data: this.persons.map((person: Person) => { return person.age }),
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
@@ -214,16 +210,21 @@ export class PersonComponent implements OnInit {
           ],
           borderWidth: 1
         }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero:true
-          }
-        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero:true
+            }
+          }]
+        },
+        legend: {
+          display: false
+        }
       }
-    }
+    });
   }
-
 }

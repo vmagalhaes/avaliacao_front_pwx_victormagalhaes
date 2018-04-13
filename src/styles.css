@@ -21,3 +21,7 @@ body {
 .style-error .mat-simple-snackbar-action {
   color: white;
 }
+
+.mat-tab-body-content {
+  overflow-x: hidden !important;
+}

@@ -1,10 +1,11 @@
 {
-  "name": "avaliacao-front-pwx-victor-magalhaes",
+  "name": "avaliacao-front-pwx-victormagalhaes",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve -H 0.0.0.0",
+    "compodoc": "compodoc -p tsconfig.json -s --port 4202",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",

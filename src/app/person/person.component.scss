@@ -23,6 +23,7 @@ mat-card {
 
   .filters-container {
     margin-top: 10px;
+    margin-right: 0px !important;
 
     .col-md-3 > mat-form-field {
       width: 100%;
@@ -40,7 +41,6 @@ mat-card {
 
 .btn-tools {
   line-height: 4;
-  text-align: right;
 
   mat-icon:hover {
     cursor: pointer;
